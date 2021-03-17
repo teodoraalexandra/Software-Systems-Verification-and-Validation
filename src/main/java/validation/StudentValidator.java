@@ -11,26 +11,27 @@ public class StudentValidator implements Validator<Student> {
      */
     @Override
     public void validate(Student entity) throws ValidationException {
-        if(entity.getID().equals("")){
-            throw new ValidationException("Id incorect!");
+        // Id validation
+        if (entity.getID().equals("") || entity.getID() == null){
+            throw new ValidationException("Incorrect id!");
         }
-        if(entity.getID() == null){
-            throw new ValidationException("Id incorect!");
+
+        // Name validation
+        if (entity.getNume().equals("") || entity.getNume() == null){
+            throw new ValidationException("Incorrect name!");
         }
-        if(entity.getNume() == ""){
-            throw new ValidationException("Nume incorect!");
+
+        // Group validation
+        if (entity.getGrupa() < 0) {
+            throw new ValidationException("Incorrect group!");
         }
-        if(entity.getGrupa() < 0) {
-            throw new ValidationException("Grupa incorecta!");
+
+        // Email validation
+        if (entity.getEmail().equals("") || entity.getEmail() == null){
+            throw new ValidationException("Incorrect email!");
         }
-        if(entity.getEmail() == null){
-            throw new ValidationException("Email incorect!");
-        }
-        if(entity.getNume() == null){
-            throw new ValidationException("Nume incorect!");
-        }
-        if(entity.getEmail().equals("")){
-            throw new ValidationException("Email incorect!");
+        if (!entity.getEmail().contains("@")) {
+            throw new ValidationException("Email should contain @!");
         }
     }
 }

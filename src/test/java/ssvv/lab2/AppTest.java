@@ -33,11 +33,11 @@ public class AppTest
     private NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
 
     @Test
-    public void positiveGroup() {
+    public void validStudent() {
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
         Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
 
-        Student student = new Student("123", "Name", 933, "email");
+        Student student = new Student("dmie2521", "Mara", 933, "bla@yahoo.com");
 
         Student added = service.addStudent(student);
         Assert.assertEquals(student, added);
@@ -48,7 +48,38 @@ public class AppTest
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
         Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
 
-        Student student = new Student("1", "Name", -2, "email");
+        Student student = new Student("dmie2521", "Mara", -2, "bla@yahoo.com");
+
+        Student added = service.addStudent(student);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void nullId() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Student student = new Student("", "Mara", 933, "bla@yahoo.com");
+
+        Student added = service.addStudent(student);
+        Assert.assertEquals(student, added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void nullName() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Student student = new Student("dmie2521", "", 933, "bla@yahoo.com");
+
+        Student added = service.addStudent(student);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void invalidEmail() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Student student = new Student("dmie2521", "Mara", 933, "blabla");
 
         Student added = service.addStudent(student);
     }
