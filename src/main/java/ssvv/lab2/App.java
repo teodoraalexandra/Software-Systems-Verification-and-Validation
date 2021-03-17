@@ -18,9 +18,9 @@ public class App
     {
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
-        String filenameStudent = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/fisiere/Studenti.xml";
-        String filenameTema = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/fisiere/Teme.xml";
-        String filenameNota = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/fisiere/Note.xml";
+        String filenameStudent = "./fisiere/Studenti.xml";
+        String filenameTema = "./fisiere/Teme.xml";
+        String filenameNota = "./fisiere/Note.xml";
 
         //StudentFileRepository studentFileRepository = new StudentFileRepository(filenameStudent);
         //TemaFileRepository temaFileRepository = new TemaFileRepository(filenameTema);
