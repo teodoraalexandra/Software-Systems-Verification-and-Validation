@@ -23,9 +23,9 @@ public class AppTest
     private TemaValidator temaValidator = new TemaValidator();
 
     // Filenames
-    private String filenameStudent = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/Lab2/fisiere/Studenti.xml";
-    private String filenameTema = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/Lab2/fisiere/Teme.xml";
-    private String filenameNota = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/Lab2/fisiere/Note.xml";
+    private String filenameStudent = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/fisiere/Studenti.xml";
+    private String filenameTema = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/fisiere/Teme.xml";
+    private String filenameNota = "/Users/teodoradan/Desktop/Software-Systems-Verification-and-Validation/fisiere/Note.xml";
 
     // Repositories
     private StudentXMLRepo studentXMLRepository = new StudentXMLRepo(filenameStudent);
