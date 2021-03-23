@@ -22,7 +22,7 @@ public class StudentValidator implements Validator<Student> {
         }
 
         // Group validation
-        if (entity.getGrupa() < 0) {
+        if (entity.getGrupa() <= 0) {
             throw new ValidationException("Incorrect group!");
         }
 
