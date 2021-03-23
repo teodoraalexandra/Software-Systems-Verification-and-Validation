@@ -2,6 +2,7 @@ package ssvv.lab2;
 
 
 import domain.Student;
+import domain.Tema;
 import org.junit.Assert;
 import org.junit.Test;
 import repository.NotaXMLRepo;
@@ -32,6 +33,7 @@ public class AppTest
     private TemaXMLRepo temaXMLRepository = new TemaXMLRepo(filenameTema);
     private NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
 
+    // LAB2 - addStudent
     @Test
     public void validStudent() {
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
@@ -82,5 +84,27 @@ public class AppTest
         Student student = new Student("dmie2521", "Mara", 933, "blabla");
 
         Student added = service.addStudent(student);
+    }
+
+    // LAB3 - addAssignment
+    @Test
+    public void validDeadline() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("assignment1", "description1", 5, 5);
+
+        Tema added = service.addTema(tema);
+        Assert.assertEquals(tema, added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void invalidDeadline() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("assignment1", "description1", 15, 5);
+
+        Tema added = service.addTema(tema);
     }
 }
