@@ -40,7 +40,7 @@ public abstract class AbstractXMLRepository<ID, E extends HasID<ID>> extends Abs
     /**
      * Incarca datele din fisier
      */
-    public void loadFromFile(){
+    public void loadFromFile() {
         try {
             Document document = DocumentBuilderFactory
                     .newInstance()
@@ -59,7 +59,6 @@ public abstract class AbstractXMLRepository<ID, E extends HasID<ID>> extends Abs
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -87,9 +86,9 @@ public abstract class AbstractXMLRepository<ID, E extends HasID<ID>> extends Abs
    @Override
     public E save(E entity) {
        E entity1 = super.save(entity);
-       if (entity1 == null) {
+       if (entity1 != null) {
             //saveToFile(entity);
-       writeToFile();
+           writeToFile();
        }
 
         return entity1;
@@ -99,6 +98,7 @@ public abstract class AbstractXMLRepository<ID, E extends HasID<ID>> extends Abs
      */
 
     public void writeToFile(){
+        System.out.println("Writing to file...");
         try {
             Document document = DocumentBuilderFactory
                     .newInstance()

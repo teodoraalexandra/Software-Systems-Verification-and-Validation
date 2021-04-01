@@ -14,6 +14,9 @@ import validation.StudentValidator;
 import validation.TemaValidator;
 import validation.ValidationException;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  * Unit test for simple App.
  */
@@ -32,6 +35,9 @@ public class AppTest
     private StudentXMLRepo studentXMLRepository = new StudentXMLRepo(filenameStudent);
     private TemaXMLRepo temaXMLRepository = new TemaXMLRepo(filenameTema);
     private NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
+
+    public AppTest() throws IOException {
+    }
 
     // LAB2 - addStudent
     @Test
@@ -159,5 +165,74 @@ public class AppTest
         Tema tema = new Tema("assignment1", "description1", 15, 5);
 
         Tema added = service.addTema(tema);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void WBT1() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("", "desc1", 3, 3);
+
+        Tema added = service.addTema(tema);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void WBT2() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("tema1", "", 3, 3);
+
+        Tema added = service.addTema(tema);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void WBT3() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("t1", "desc1", -1, 3);
+
+        Tema added = service.addTema(tema);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void WBT4() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("t1", "desc1", 3, -1);
+
+        Tema added = service.addTema(tema);
+    }
+
+    @Test
+    public void WBT5() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("t1", "desc1", 3, 3);
+
+        Tema added = service.addTema(tema);
+    }
+
+    @Test()
+    public void WBT6() throws Exception {
+        TemaValidator temaValidator = new TemaValidator();
+        String invalidFilenameTema = "./fisiere/Invalid.xml";
+        temaXMLRepository = new TemaXMLRepo(invalidFilenameTema);
+
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        Tema tema = new Tema("t1", "desc1", 3, 3);
+
+        Tema added = service.addTema(tema);
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void WBT7() {
+        temaXMLRepository.save(null);
     }
 }
