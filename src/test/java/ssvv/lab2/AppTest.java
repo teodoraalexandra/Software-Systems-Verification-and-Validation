@@ -1,6 +1,7 @@
 package ssvv.lab2;
 
 
+import domain.Nota;
 import domain.Student;
 import domain.Tema;
 import org.junit.Assert;
@@ -14,8 +15,7 @@ import validation.StudentValidator;
 import validation.TemaValidator;
 import validation.ValidationException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * Unit test for simple App.
@@ -36,7 +36,7 @@ public class AppTest
     private TemaXMLRepo temaXMLRepository = new TemaXMLRepo(filenameTema);
     private NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
 
-    public AppTest() throws IOException {
+    public AppTest() {
     }
 
     // LAB2 - addStudent
@@ -218,7 +218,7 @@ public class AppTest
     }
 
     @Test()
-    public void WBT6() throws Exception {
+    public void WBT6() {
         TemaValidator temaValidator = new TemaValidator();
         String invalidFilenameTema = "./fisiere/Invalid.xml";
         temaXMLRepository = new TemaXMLRepo(invalidFilenameTema);
@@ -234,5 +234,29 @@ public class AppTest
     @Test(expected=NullPointerException.class)
     public void WBT7() {
         temaXMLRepository.save(null);
+    }
+
+    // Lab4 - addGrade
+    @Test()
+    public void validGrade() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        LocalDate date = LocalDate.of(2018, 10, 15);
+        Nota nota = new Nota("1", "1", "1", 10, date);
+
+        double added = service.addNota(nota, "Looks good.");
+        Assert.assertEquals(10.00, added, 2);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void invalidGrade() {
+        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
+
+        LocalDate date = LocalDate.of(2018, 10, 15);
+        Nota nota = new Nota("1", "1", "1", -1, date);
+
+        double added = service.addNota(nota, "Looks good.");
     }
 }
