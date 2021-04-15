@@ -66,10 +66,29 @@ public class IntegrationTest {
         Assert.assertEquals(10.00, added, 2);
     }
 
+    // Big-bang integration - in class
     @Test()
     public void testAll() {
         addStudent();
         addAssignment();
+        addGrade();
+    }
+
+    // Top-down - at home
+    @Test()
+    public void integrationTD1() {
+        addStudent();
+    }
+
+    @Test()
+    public void integrationTD2() {
+        integrationTD1();
+        addAssignment();
+    }
+
+    @Test()
+    public void integrationTD3() {
+        integrationTD2();
         addGrade();
     }
 }
